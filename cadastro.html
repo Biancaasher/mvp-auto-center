@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Auto Center</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Novo Registro de Entrada</h1>
+        <nav><a href="index.html">Voltar ao Início</a></nav>
+    </header>
+    <main>
+        <form id="formVeiculo">
+            <input type="text" id="placa" placeholder="Placa do Veículo (Ex: ABC1234)" required>
+            <input type="text" id="modelo" placeholder="Modelo do Veículo" required>
+            <input type="text" id="cliente" placeholder="Nome do Cliente" required>
+            <button type="submit">Registrar Entrada</button>
+        </form>
+        <p id="msgSucesso" style="color: green; font-weight: bold; margin-top: 10px;"></p>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>
