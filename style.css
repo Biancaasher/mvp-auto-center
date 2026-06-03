@@ -1,9 +1,116 @@
-body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
-header { background-color: #333; color: white; padding: 20px; text-align: center; border-radius: 4px; }
-header a { color: #fff; margin: 0 10px; text-decoration: none; font-weight: bold; }
-main { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-form input { display: block; width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 4px; }
-button:hover { background-color: #218838; }
-input[type="text"]#campoFiltro { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-table th, table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+/* ==========================================================================
+   PADRONIZAÇÃO VISUAL - SA05 (MVP Auto Center)
+   ========================================================================== */
+
+/* Estilos Globais e Reset */
+body { 
+    font-family: Arial, sans-serif; 
+    background-color: #f4f4f4; 
+    margin: 0; 
+    padding: 20px; 
+}
+
+/* Cabeçalho Padronizado */
+header { 
+    background-color: #333; 
+    color: white; 
+    padding: 20px; 
+    text-align: center; 
+    border-radius: 4px; 
+}
+
+header a { 
+    color: #fff; 
+    margin: 0 10px; 
+    text-decoration: none; 
+    font-weight: bold; 
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+/* Layout dos Contentores Principais (Travamento de Margens e Padding em 20px) */
+main { 
+    max-width: 800px; 
+    margin: 20px auto; 
+    background: white; 
+    padding: 20px; /* Melhoria SA05: Padding unificado e fixo */
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+section {
+    padding: 10px 0;
+}
+
+/* Formulários e Inputs */
+form input { 
+    display: block; 
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 12px; 
+    box-sizing: border-box; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    transition: border 0.2s ease-in-out; /* Suavidade no feedback visual */
+}
+
+/* Botão de Ação Principal */
+button { 
+    width: 100%; 
+    padding: 12px; 
+    background-color: #28a745; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    font-size: 16px; 
+    border-radius: 4px; 
+    font-weight: bold;
+}
+
+button:hover { 
+    background-color: #218838; 
+}
+
+/* Tabelas de Listagem Padronizadas */
+input[type="text"]#campoFiltro { 
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%; 
+    margin-top: 10px; 
+    border-collapse: collapse;
+}
+
+table th, table td { 
+    padding: 12px; /* Espaçamento interno das células padronizado */
+    text-align: left; 
+    border-bottom: 1px solid #ddd; 
+}
+
+table th {
+    background-color: #eee;
+    color: #333;
+}
+
+/* ==========================================================================
+   MELHORIAS DE FEEDBACK VISUAL - SA05
+   ========================================================================== */
+
+/* Nota: Os estados de erro e sucesso são geridos dinamicamente via JavaScript,
+   aplicando os estilos inline de 'border: 2px solid red' diretamente nos inputs,
+   conforme definido no padrão do time. */
+
+#msgSucesso {
+    font-weight: bold; 
+    margin-top: 15px;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+}
