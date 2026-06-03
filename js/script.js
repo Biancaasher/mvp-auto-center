@@ -1,75 +1,68 @@
-const form = document.getElementById('formVeiculo');
-const tabela = document.getElementById('tabelaVeiculos');
-const filtro = document.getElementById('campoFiltro');
 
-function buscarDados() {
-    return JSON.parse(localStorage.getItem('veiculos_db')) || [];
-}
 
-// Lógica de Validação Refinada (Melhoria SA05)
-if (form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const placa = document.getElementById('placa');
-        const modelo = document.getElementById('modelo');
-        const cliente = document.getElementById('cliente');
-        const msgSucesso = document.getElementById('msgSucesso');
-        
-        let temErro = false;
+document.addEventListener("DOMContentLoaded", () => {
+    const formCadastro = document.getElementById("formCadastro");
+    const campoFiltro = document.getElementById("campoFiltro");
 
-        // Limpa validações anteriores
-        [placa, modelo, cliente].forEach(input => {
-            input.style.border = "1px solid #ccc";
-        });
-        msgSucesso.textContent = "";
+    // 1. Fluxo de Validação do Formulário de Cadastro
+    if (formCadastro) {
+        formCadastro.addEventListener("submit", (e) => {
+            e.preventDefault();
+            
+            // Seleção dos inputs
+            const modelo = document.getElementById("modelo");
+            const placa = document.getElementById("placa");
+            let formularioValido = true;
 
-        // Validação campo por campo com feedback visual (Borda vermelha)
-        if (!placa.value.trim()) {
-            placa.style.border = "2px solid red";
-            msgSucesso.textContent = "Preencha este campo de preenchimento obrigatório: Placa.";
-            msgSucesso.style.color = "red";
-            temErro = true;
-        } else if (!modelo.value.trim()) {
-            modelo.style.border = "2px solid red";
-            msgSucesso.textContent = "Preencha este campo de preenchimento obrigatório: Modelo.";
-            msgSucesso.style.color = "red";
-            temErro = true;
-        } else if (!cliente.value.trim()) {
-            cliente.style.border = "2px solid red";
-            msgSucesso.textContent = "Preencha este campo de preenchimento obrigatório: Nome do Cliente.";
-            msgSucesso.style.color = "red";
-            temErro = true;
-        }
+            // Limpa estados de erro anteriores
+            [modelo, placa].forEach(input => {
+                if (input) {
+                    input.style.border = "1px solid #ccc";
+                }
+            });
 
-        if (temErro) return; // Para a execução se houver erro
+            const msgSucesso = document.getElementById("msgSucesso");
+            if (msgSucesso) msgSucesso.textContent = "";
 
-        // Salva se estiver tudo certo
-        const lista = buscarDados();
-        lista.push({
-            placa: placa.value,
-            modelo: modelo.value,
-            cliente: cliente.value
-        });
-        localStorage.setItem('veiculos_db', JSON.stringify(lista));
-        
-        // Mensagem de sucesso padronizada
-        msgSucesso.textContent = "Operação realizada com sucesso!";
-        msgSucesso.style.color = "green";
-        form.reset();
-    });
-}
+            // Validação do campo Modelo
+            if (modelo && modelo.value.trim() === "") {
+                modelo.style.border = "2px solid red";
+                alert("Preencha este campo de preenchimento obrigatório: Modelo.");
+                formularioValido = false;
+            }
 
-if (tabela) {
-    function mostrarTabela(termoBusca = "") {
-        tabela.innerHTML = "";
-        const veiculos = buscarDados();
-        veiculos.forEach(v => {
-            if (v.placa.toLowerCase().includes(termoBusca.toLowerCase())) {
-                tabela.innerHTML += `<tr><td>${v.placa}</td><td>${v.modelo}</td><td>${v.cliente}</td></tr>`;
+            // Validação do campo Placa
+            if (formularioValido && placa && placa.value.trim() === "") {
+                placa.style.border = "2px solid red";
+                alert("Preencha este campo de preenchimento obrigatório: Placa.");
+                formularioValido = false;
+            }
+
+            // Se tudo estiver correto, simula o sucesso
+            if (formularioValido) {
+                if (msgSucesso) {
+                    msgSucesso.style.color = "green";
+                    msgSucesso.textContent = "Operação realizada com sucesso!";
+                }
+                formCadastro.reset();
             }
         });
     }
-    filtro.addEventListener('input', () => mostrarTabela(filtro.value));
-    mostrarTabela();
-}
+
+    // 2. Interação Principal: Filtrar/Buscar itens localmente na tabela
+    if (campoFiltro) {
+        campoFiltro.addEventListener("input", () => {
+            const termoBusca = campoFiltro.value.toLowerCase();
+            const linhasTabela = document.querySelectorAll("table tbody tr");
+
+            linhasTabela.forEach(linha => {
+                const textoLinha = linha.textContent.toLowerCase();
+                if (textoLinha.includes(termoBusca)) {
+                    linha.style.display = "";
+                } else {
+                    linha.style.display = "none";
+                }
+            });
+        });
+    }
+});
